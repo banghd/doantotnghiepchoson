@@ -8,7 +8,7 @@
     "static-build": "next build && next export",
     "start": "next start",
     "lint": "next lint",
-    "vercel-deploy": "vercel --prod",
+    "vercel-deploy": "npm config set legacy-peer-deps true && vercel --prod",
     "netlify-deploy": "npm run static-build && netlify deploy --prod --dir=out",
     "analyze": "cross-env ANALYZE=true next build",
     "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
