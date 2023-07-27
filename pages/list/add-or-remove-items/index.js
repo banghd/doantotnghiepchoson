@@ -29,7 +29,7 @@ import tmdbAPI from 'services/tmdbAPI';
  * Should handle errors: https://github.com/axios/axios/issues/960 & https://github.com/axios/axios#handling-errors.
  * Should integrate a notification system to notify errors from the service.
  * Should explore a better approach rather than refetch approach.
- * Should handle error state and show proper error message based on error state. 
+ * Should handle error state and show proper error message based on error state.
  * Should make disable the items that have been already added.
  * Could handle `comments` feature.
  */
@@ -76,6 +76,7 @@ const AddOrRemoveItems = ({
       if (!listId) return;
       if (!accessToken) return;
       if (!accountId) return;
+      console.log(accountId)
 
       try {
         setStatus(STATUSES.PENDING);
@@ -118,7 +119,7 @@ const AddOrRemoveItems = ({
       await tmdbAPI.post(`/${TMDB_API_NEW_VERSION}/list/${listId}/items`, body, config);
       const expectedPage = Math.ceil((movies.total_results + 1) / TMDB_PAGE_LIMIT);
       if (expectedPage === page) {
-        await loadMovies(page, listId, accessToken);
+        await loadMovies(page, listId, accessToken, accountId);
       } else {
         Router.push({
           query: {
@@ -158,7 +159,7 @@ const AddOrRemoveItems = ({
         ...prevState,
         [mediaId]: STATUSES.PENDING
       }));
-      
+
       await tmdbAPI.delete(`/${TMDB_API_NEW_VERSION}/list/${listId}/items`, {headers, data});
 
       setRemoveItemStatus(prevState => ({
