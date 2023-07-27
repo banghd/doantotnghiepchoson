@@ -34,7 +34,7 @@ const Home = () => {
 
   const categoryName = query[QUERY_PARAMS.CATEGORY];
   const page = Number(query[QUERY_PARAMS.PAGE]);
-  
+
   useEffect(() => {
     return () => {
       dispatch(setSelectedMenuItemName());
@@ -89,7 +89,7 @@ const Home = () => {
       if (!categoryName || !page) return;
 
       scroll.scrollToTop({smooth: true});
-      
+
       await dispatch(setSelectedMenuItemName(categoryName));
       dispatch(getStaticCategoryMovies(categoryName, page));
     })();
